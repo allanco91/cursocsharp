@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course4", "Course4\Course4.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExercicioEnumComp", "ExercicioEnumComp\ExercicioEnumComp.csproj", "{3AD26BF2-20DA-4652-BADA-E390532D623B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heranca", "Heranca\Heranca.csproj", "{5FE50E62-D58C-4D4A-A702-F1041DA97CFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3AD26BF2-20DA-4652-BADA-E390532D623B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AD26BF2-20DA-4652-BADA-E390532D623B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AD26BF2-20DA-4652-BADA-E390532D623B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FE50E62-D58C-4D4A-A702-F1041DA97CFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FE50E62-D58C-4D4A-A702-F1041DA97CFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FE50E62-D58C-4D4A-A702-F1041DA97CFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FE50E62-D58C-4D4A-A702-F1041DA97CFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
