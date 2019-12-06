@@ -18,5 +18,11 @@ namespace Chess.ChessBoard
         {
             return Pieces[row, column];
         }
+
+        public void PutPiece(Piece p, Position pos)
+        {
+            Pieces[pos.Row, pos.Column] = p;
+            p.Position = pos;
+        }
     }
 }
