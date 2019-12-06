@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Chess.Chess;
 using Chess.ChessBoard;
 
@@ -6,6 +7,43 @@ namespace Chess
 {
     class Screen
     {
+        public static void PrintGame(ChessGame game)
+        {
+            Console.Clear();
+            PrintBoard(game.Board);
+            Console.WriteLine();
+            PrintCaughtPieces(game);
+
+            Console.WriteLine();
+            Console.WriteLine("Turno: " + game.Turn);
+            Console.WriteLine("Aguardando jogada: " + game.CurrentPlayer);
+        }
+
+        public static void PrintCaughtPieces(ChessGame game)
+        {
+            Console.WriteLine("Peças capturadas:");
+            Console.Write("Brancas: ");
+            PrintSet(game.CaughtPieces(Color.White));
+            Console.WriteLine();
+            Console.Write("Pretas: ");
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            PrintSet(game.CaughtPieces(Color.Black));
+            Console.ForegroundColor = aux;
+            Console.WriteLine();
+
+        }
+
+        public static void PrintSet(HashSet<Piece> set)
+        {
+            Console.Write("[ ");
+            foreach (Piece piece in set)
+            {
+                Console.Write(piece + " ");
+            }
+            Console.Write("]");
+        }
+
         public static void PrintBoard(Board board)
         {
             for (int i = 0; i < board.Rows; i++)

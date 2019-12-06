@@ -16,12 +16,8 @@ namespace Chess
                 {
                     try
                     {
-                        Console.Clear();
-                        Screen.PrintBoard(game.Board);
-
-                        Console.WriteLine();
-                        Console.WriteLine("Turno: " + game.Turn);
-                        Console.WriteLine("Aguardando jogada: " + game.CurrentPlayer);
+                        Screen.PrintGame(game);
+                        
                         Console.Write("Origem: ");
                         Position source = Screen.ReadChessPosition().ToPosition();
                         game.ValidateSourcePosition(source);
