@@ -15,11 +15,21 @@ namespace Chess
             PrintCaughtPieces(game);
 
             Console.WriteLine();
-            Console.WriteLine("Turno: " + game.Turn);
-            Console.WriteLine("Aguardando jogada: " + game.CurrentPlayer);
+
+            if (!game.Finished)
+            {
+                Console.WriteLine("Turno: " + game.Turn);
+                Console.WriteLine("Aguardando jogada: " + game.CurrentPlayer);
+
+                if (game.IsInCheck(game.CurrentPlayer))
+                    Console.WriteLine("XEQUE!");
+            }
+            else
+            {
+                Console.WriteLine("XEQUEMATE!");
+                Console.WriteLine("Vencedor: " + game.CurrentPlayer);
+            }
             
-            if (game.IsInCheck(game.CurrentPlayer))
-                Console.WriteLine("XEQUE!");
         }
 
         public static void PrintCaughtPieces(ChessGame game)

@@ -38,7 +38,7 @@ namespace Chess.Chess
             return capturedPiece;
         }
 
-        public void UndoMovement(Position source, Position dest, Piece capturedPiece)
+        public void UndoMove(Position source, Position dest, Piece capturedPiece)
         {
             Piece p = Board.RemovePiece(dest);
             p.DecrementQntMoves();
@@ -48,9 +48,7 @@ namespace Chess.Chess
                 Board.PutPiece(capturedPiece, dest);
                 Caught.Remove(capturedPiece);
             }
-
             Board.PutPiece(p, source);
-
         }
         
         public void MakePlay(Position source, Position dest)
@@ -59,15 +57,19 @@ namespace Chess.Chess
 
             if (IsInCheck(CurrentPlayer))
             {
-                UndoMovement(source, dest, capturedPiece);
+                UndoMove(source, dest, capturedPiece);
                 throw new BoardException("Você não pode se colocar em xeque.");
             }
 
             Check = IsInCheck(Enemy(CurrentPlayer));
 
-            Turn++;
-            ChangePlayer(); 
-
+            if (IsCheckmate(Enemy(CurrentPlayer)))
+                Finished = true;
+            else 
+            {
+                Turn++;
+                ChangePlayer();
+            }
         }
 
         public void ValidateSourcePosition(Position pos)
@@ -113,7 +115,6 @@ namespace Chess.Chess
                     aux.Add(x);
                 }
             }
-
             return aux;
         }
 
@@ -172,6 +173,36 @@ namespace Chess.Chess
             return false;
         }
 
+        public bool IsCheckmate(Color color)
+        {
+            if (!IsInCheck(color))
+                return false;
+
+            foreach (Piece p in PiecesInGame(color))
+            {
+                bool[,] mat = p.PossibleMovements();
+
+                for (int i = 0; i < Board.Rows; i++)
+                {
+                    for (int j = 0; j < Board.Columns; j++)
+                    {
+                        if (mat[i,j])
+                        {
+                            Position source = p.Position;
+                            Position destination = new Position(i, j);
+                            Piece capturedPiece = MovePiece(source, destination);
+                            bool testCheck = IsInCheck(color);
+                            UndoMove(source, destination, capturedPiece);
+                            if (!testCheck)
+                                return false;
+                        }
+                    }
+                }
+            }
+
+            return true;
+        }
+
         public void PutNewPiece(char column, int row, Piece piece)
         {
             Board.PutPiece(piece, new ChessPosition(column, row).ToPosition());
@@ -184,15 +215,11 @@ namespace Chess.Chess
             PutNewPiece('c', 2, new Rook(Board, Color.White));
             PutNewPiece('d', 2, new Rook(Board, Color.White));
             PutNewPiece('e', 2, new Rook(Board, Color.White));
-            PutNewPiece('e', 1, new Rook(Board, Color.White));
+            PutNewPiece('g', 7, new Rook(Board, Color.White));
             PutNewPiece('d', 1, new King(Board, Color.White));
 
-            PutNewPiece('c', 7, new Rook(Board, Color.Black));
-            PutNewPiece('c', 8, new Rook(Board, Color.Black));
-            PutNewPiece('d', 7, new Rook(Board, Color.Black));
-            PutNewPiece('e', 7, new Rook(Board, Color.Black));
-            PutNewPiece('e', 8, new Rook(Board, Color.Black));
-            PutNewPiece('d', 8, new King(Board, Color.Black));
+            PutNewPiece('b', 8, new Rook(Board, Color.Black));
+            PutNewPiece('a', 8, new King(Board, Color.Black));
         }
     }
 }
