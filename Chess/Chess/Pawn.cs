@@ -4,9 +4,11 @@ namespace Chess.Chess
 {
     class Pawn : Piece
     {
-        public Pawn(Board board, Color color) : base(board, color)
-        {
 
+        private ChessGame _game;
+        public Pawn(Board board, Color color, ChessGame game) : base(board, color)
+        {
+            _game = game;
         }
 
         private bool CanMove(Position pos)
@@ -77,7 +79,48 @@ namespace Chess.Chess
                 mat[pos.Row, pos.Column] = true;
             }
 
+            //#jogadaespecial en passant Branca
+            if (Position.Row == 3)
+            {
+                Position left = new Position(Position.Row, Position.Column - 1);
+                if (Board.ValidPosition(left) && EnemyExists(left) && Board.Piece(left) == _game.EnPassantVulnerability)
+                {
+                    mat[left.Row, left.Column] = true;
+                }
+
+                Position right = new Position(Position.Row, Position.Column + 1);
+                if (Board.ValidPosition(right) && EnemyExists(right) && Board.Piece(right) == _game.EnPassantVulnerability)
+                {
+                    mat[right.Row, right.Column] = true;
+                }
+            }
+
+            //#jogadaespecial en passant Preta
+            if (Position.Row == 4)
+            {
+                Position left = new Position(Position.Row, Position.Column - 1);
+                if (Board.ValidPosition(left) && EnemyExists(left) && Board.Piece(left) == _game.EnPassantVulnerability)
+                {
+                    mat[left.Row, left.Column] = true;
+                }
+
+                Position right = new Position(Position.Row, Position.Column + 1);
+                if (Board.ValidPosition(right) && EnemyExists(right) && Board.Piece(right) == _game.EnPassantVulnerability)
+                {
+                    mat[right.Row, right.Column] = true;
+                }
+            }
+
             return mat;
+        }
+
+        private bool EnemyExists(Position pos)
+        {
+            Piece p = Board.Piece(pos);
+            if (p != null && p.Color != Color)
+                return true;
+            else
+                return false;
         }
 
         public override string ToString()

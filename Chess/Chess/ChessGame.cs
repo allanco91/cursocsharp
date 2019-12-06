@@ -12,6 +12,7 @@ namespace Chess.Chess
         private HashSet<Piece> Pieces;
         private HashSet<Piece> Caught;
         public bool Check { get; private set; }
+        public Piece EnPassantVulnerability { get; private set; }
 
         public ChessGame()
         {
@@ -20,6 +21,7 @@ namespace Chess.Chess
             CurrentPlayer = Color.White;
             Finished = false;
             Check = false;
+            EnPassantVulnerability = null;
             Pieces = new HashSet<Piece>();
             Caught = new HashSet<Piece>();
             PutPieces();
@@ -110,6 +112,14 @@ namespace Chess.Chess
                 Turn++;
                 ChangePlayer();
             }
+
+            Piece p = Board.Piece(dest);
+
+            //#jogada especial en passant
+            if (p is Pawn && (dest.Row == dest.Row - 2 || dest.Row == dest.Row + 2))
+                EnPassantVulnerability = p;
+            else
+                EnPassantVulnerability = null;
         }
 
         public void ValidateSourcePosition(Position pos)
