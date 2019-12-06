@@ -35,6 +35,26 @@ namespace Chess.Chess
             if (capturedPiece != null)
                 Caught.Add(capturedPiece);
 
+            //#jogada especial roque pequeno castle kingside
+            if (p is King && dest.Column == source.Column + 2)
+            {
+                Position sourceR = new Position(source.Row, source.Column + 3);
+                Position destinationR = new Position(source.Row, source.Column + 1);
+                Piece R = Board.RemovePiece(sourceR);
+                R.IncrementQntMoves();
+                Board.PutPiece(R, destinationR);
+            }
+
+            //#jogada especial roque grande castle queenside
+            if (p is King && dest.Column == source.Column - 2)
+            {
+                Position sourceR = new Position(source.Row, source.Column - 4);
+                Position destinationR = new Position(source.Row, source.Column - 1);
+                Piece R = Board.RemovePiece(sourceR);
+                R.IncrementQntMoves();
+                Board.PutPiece(R, destinationR);
+            }
+
             return capturedPiece;
         }
 
@@ -49,6 +69,26 @@ namespace Chess.Chess
                 Caught.Remove(capturedPiece);
             }
             Board.PutPiece(p, source);
+
+            //#jogada especial roque pequeno castle kingside
+            if (p is King && dest.Column == source.Column + 2)
+            {
+                Position sourceR = new Position(source.Row, source.Column + 3);
+                Position destinationR = new Position(source.Row, source.Column + 1);
+                Piece R = Board.RemovePiece(destinationR);
+                R.DecrementQntMoves();
+                Board.PutPiece(R, sourceR);
+            }
+
+            //#jogada especial roque grande castle queenside
+            if (p is King && dest.Column == source.Column - 2)
+            {
+                Position sourceR = new Position(source.Row, source.Column - 4);
+                Position destinationR = new Position(source.Row, source.Column - 1);
+                Piece R = Board.RemovePiece(destinationR);
+                R.DecrementQntMoves();
+                Board.PutPiece(R, sourceR);
+            }
         }
         
         public void MakePlay(Position source, Position dest)
@@ -225,7 +265,7 @@ namespace Chess.Chess
             PutNewPiece('b', 8, new Knight(Board, Color.Black));
             PutNewPiece('c', 8, new Bishop(Board, Color.Black));
             PutNewPiece('d', 8, new Queen(Board, Color.Black));
-            PutNewPiece('e', 8, new King(Board, Color.Black));
+            PutNewPiece('e', 8, new King(Board, Color.Black, this));
             PutNewPiece('f', 8, new Bishop(Board, Color.Black));
             PutNewPiece('g', 8, new Knight(Board, Color.Black));
             PutNewPiece('h', 8, new Rook(Board, Color.Black));
@@ -242,7 +282,7 @@ namespace Chess.Chess
             PutNewPiece('b', 1, new Knight(Board, Color.White));
             PutNewPiece('c', 1, new Bishop(Board, Color.White));
             PutNewPiece('d', 1, new Queen(Board, Color.White));
-            PutNewPiece('e', 1, new King(Board, Color.White));
+            PutNewPiece('e', 1, new King(Board, Color.White, this));
             PutNewPiece('f', 1, new Bishop(Board, Color.White));
             PutNewPiece('g', 1, new Knight(Board, Color.White));
             PutNewPiece('h', 1, new Rook(Board, Color.White));
