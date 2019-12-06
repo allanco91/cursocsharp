@@ -24,7 +24,7 @@ namespace Chess.ChessBoard
             return Pieces[pos.Row, pos.Column];
         }
 
-        public void MovePiece(Piece p, Position pos)
+        public void PutPiece(Piece p, Position pos)
         {
             if (ThereIsPiece(pos))
             {
@@ -32,6 +32,19 @@ namespace Chess.ChessBoard
             }
             Pieces[pos.Row, pos.Column] = p;
             p.Position = pos;
+        }
+
+        public Piece RemovePiece(Position pos)
+        {
+            if (Piece(pos) == null)
+            {
+                return null;
+            }
+
+            Piece piece = Piece(pos);
+            piece.Position = null;
+            Pieces[pos.Row, pos.Column] = null;
+            return piece;
         }
 
         public bool ThereIsPiece(Position pos)

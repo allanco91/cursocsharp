@@ -5,7 +5,7 @@ namespace Chess.ChessBoard
     {
         public Position Position { get; set; }
         public Color Color { get; protected set; }
-        public int qntMoves { get; protected set; }
+        public int QntMoves { get; protected set; }
         public Board Board { get; protected set; }
 
         public Piece(Board board, Color color)
@@ -13,7 +13,12 @@ namespace Chess.ChessBoard
             Position = null;
             Board = board;
             Color = color;
-            qntMoves = 0;
+            QntMoves = 0;
+        }
+
+        public void IncrementQntMoves()
+        {
+            QntMoves++;
         }
     }
 }
