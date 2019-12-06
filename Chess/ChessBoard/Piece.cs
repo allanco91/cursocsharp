@@ -42,7 +42,7 @@ namespace Chess.ChessBoard
             return false;
         }
 
-        public bool CanMoveTo(Position pos)
+        public bool PossibleMovement(Position pos)
         {
             return PossibleMovements()[pos.Row, pos.Column];
         }
