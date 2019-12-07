@@ -21,60 +21,56 @@ namespace Chess.Chess
 
             Position pos = new Position(0, 0);
 
-            //Up
-            pos.SetPosition(Position.Row - 1, Position.Column);
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
-
-            //Ne
-            pos.SetPosition(Position.Row - 1, Position.Column + 1);
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
-
-            //Right
-            pos.SetPosition(Position.Row, Position.Column + 1);
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
-
-            //Se
-            pos.SetPosition(Position.Row + 1, Position.Column + 1);
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
-
-            //Down
-            pos.SetPosition(Position.Row + 1, Position.Column);
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
-
-            //Sw
-            pos.SetPosition(Position.Row + 1, Position.Column - 1);
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
-
-            //Down
-            pos.SetPosition(Position.Row, Position.Column - 1);
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
-
-            //Nw
             pos.SetPosition(Position.Row - 1, Position.Column - 1);
-            if (Board.ValidPosition(pos) && CanMove(pos))
+            while (Board.ValidPosition(pos) && CanMove(pos))
             {
                 mat[pos.Row, pos.Column] = true;
+                if (Board.Piece(pos) != null && Board.Piece(pos).Color != Color)
+                {
+                    break;
+                }
+
+                pos.Row = pos.Row - 1;
+                pos.Column = pos.Column - 1;
+            }
+
+            pos.SetPosition(Position.Row - 1, Position.Column + 1);
+            while (Board.ValidPosition(pos) && CanMove(pos))
+            {
+                mat[pos.Row, pos.Column] = true;
+                if (Board.Piece(pos) != null && Board.Piece(pos).Color != Color)
+                {
+                    break;
+                }
+
+                pos.Row = pos.Row - 1;
+                pos.Column = pos.Column + 1;
+            }
+
+            pos.SetPosition(Position.Row + 1, Position.Column + 1);
+            while (Board.ValidPosition(pos) && CanMove(pos))
+            {
+                mat[pos.Row, pos.Column] = true;
+                if (Board.Piece(pos) != null && Board.Piece(pos).Color != Color)
+                {
+                    break;
+                }
+
+                pos.Row = pos.Row + 1;
+                pos.Column = pos.Column + 1;
+            }
+
+            pos.SetPosition(Position.Row + 1, Position.Column - 1);
+            while (Board.ValidPosition(pos) && CanMove(pos))
+            {
+                mat[pos.Row, pos.Column] = true;
+                if (Board.Piece(pos) != null && Board.Piece(pos).Color != Color)
+                {
+                    break;
+                }
+
+                pos.Row = pos.Row + 1;
+                pos.Column = pos.Column - 1;
             }
 
             return mat;

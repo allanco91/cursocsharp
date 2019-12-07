@@ -73,7 +73,6 @@ namespace Chess.Chess
                 pos.Column = pos.Column - 1;
             }
 
-
             return mat;
         }
 

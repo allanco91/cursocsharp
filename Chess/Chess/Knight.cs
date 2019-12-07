@@ -21,57 +21,49 @@ namespace Chess.Chess
 
             Position pos = new Position(0, 0);
 
-            //Up
-            pos.SetPosition(Position.Row - 1, Position.Column);
+            pos.SetPosition(Position.Row - 1, Position.Column + 2);
             if (Board.ValidPosition(pos) && CanMove(pos))
             {
                 mat[pos.Row, pos.Column] = true;
             }
 
-            //Ne
-            pos.SetPosition(Position.Row - 1, Position.Column + 1);
+            pos.SetPosition(Position.Row - 1, Position.Column - 2);
             if (Board.ValidPosition(pos) && CanMove(pos))
             {
                 mat[pos.Row, pos.Column] = true;
             }
 
-            //Right
-            pos.SetPosition(Position.Row, Position.Column + 1);
+            pos.SetPosition(Position.Row + 1, Position.Column + 2);
             if (Board.ValidPosition(pos) && CanMove(pos))
             {
                 mat[pos.Row, pos.Column] = true;
             }
 
-            //Se
-            pos.SetPosition(Position.Row + 1, Position.Column + 1);
+            pos.SetPosition(Position.Row + 1, Position.Column - 2);
             if (Board.ValidPosition(pos) && CanMove(pos))
             {
                 mat[pos.Row, pos.Column] = true;
             }
 
-            //Down
-            pos.SetPosition(Position.Row + 1, Position.Column);
+            pos.SetPosition(Position.Row - 2, Position.Column + 1);
             if (Board.ValidPosition(pos) && CanMove(pos))
             {
                 mat[pos.Row, pos.Column] = true;
             }
 
-            //Sw
-            pos.SetPosition(Position.Row + 1, Position.Column - 1);
+            pos.SetPosition(Position.Row - 2, Position.Column - 1);
             if (Board.ValidPosition(pos) && CanMove(pos))
             {
                 mat[pos.Row, pos.Column] = true;
             }
 
-            //Down
-            pos.SetPosition(Position.Row, Position.Column - 1);
+            pos.SetPosition(Position.Row + 2, Position.Column + 1);
             if (Board.ValidPosition(pos) && CanMove(pos))
             {
                 mat[pos.Row, pos.Column] = true;
             }
 
-            //Nw
-            pos.SetPosition(Position.Row - 1, Position.Column - 1);
+            pos.SetPosition(Position.Row - 2, Position.Column - 1);
             if (Board.ValidPosition(pos) && CanMove(pos))
             {
                 mat[pos.Row, pos.Column] = true;

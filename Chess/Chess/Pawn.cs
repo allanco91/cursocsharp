@@ -14,7 +14,7 @@ namespace Chess.Chess
         private bool CanMove(Position pos)
         {
             Piece p = Board.Piece(pos);
-            return p == null || p.Color != Color;
+            return p == null;
         }
 
         public override bool[,] PossibleMovements()
@@ -23,91 +23,72 @@ namespace Chess.Chess
 
             Position pos = new Position(0, 0);
 
-            //Up
-            pos.SetPosition(Position.Row - 1, Position.Column);
-            if (Board.ValidPosition(pos) && CanMove(pos))
+            if (Color == Color.White)
             {
-                mat[pos.Row, pos.Column] = true;
-            }
+                pos.SetPosition(Position.Row - 1, Position.Column);
+                if (Board.ValidPosition(pos) && CanMove(pos))
+                    mat[pos.Row, pos.Column] = true;
 
-            //Ne
-            pos.SetPosition(Position.Row - 1, Position.Column + 1);
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
+                Position pos2 = new Position(Position.Row - 2, Position.Column);
+                if (Board.ValidPosition(pos) && CanMove(pos) && Board.ValidPosition(pos2) && CanMove(pos2) && QntMoves == 0)
+                    mat[pos2.Row, pos2.Column] = true;
 
-            //Right
-            pos.SetPosition(Position.Row, Position.Column + 1);
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
+                pos.SetPosition(Position.Row - 1, Position.Column - 1);
+                if (Board.ValidPosition(pos) && CanMove(pos) && EnemyExists(pos))
+                    mat[pos.Row, pos.Column] = true;
 
-            //Se
-            pos.SetPosition(Position.Row + 1, Position.Column + 1);
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
+                pos.SetPosition(Position.Row - 1, Position.Column + 1);
+                if (Board.ValidPosition(pos) && CanMove(pos) && EnemyExists(pos))
+                    mat[pos.Row, pos.Column] = true;
 
-            //Down
-            pos.SetPosition(Position.Row + 1, Position.Column);
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
-
-            //Sw
-            pos.SetPosition(Position.Row + 1, Position.Column - 1);
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
-
-            //Down
-            pos.SetPosition(Position.Row, Position.Column - 1);
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
-
-            //Nw
-            pos.SetPosition(Position.Row - 1, Position.Column - 1);
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
-
-            //#jogadaespecial en passant Branca
-            if (Position.Row == 3)
-            {
-                Position left = new Position(Position.Row, Position.Column - 1);
-                if (Board.ValidPosition(left) && EnemyExists(left) && Board.Piece(left) == _game.EnPassantVulnerability)
+                //#jogadaespecial en passant Branca
+                if (Position.Row == 3)
                 {
-                    mat[left.Row, left.Column] = true;
-                }
+                    Position left = new Position(Position.Row, Position.Column - 1);
+                    if (Board.ValidPosition(left) && EnemyExists(left) && Board.Piece(left) == _game.EnPassantVulnerability)
+                    {
+                        mat[left.Row - 1, left.Column] = true;
+                    }
 
-                Position right = new Position(Position.Row, Position.Column + 1);
-                if (Board.ValidPosition(right) && EnemyExists(right) && Board.Piece(right) == _game.EnPassantVulnerability)
-                {
-                    mat[right.Row, right.Column] = true;
+                    Position right = new Position(Position.Row, Position.Column + 1);
+                    if (Board.ValidPosition(right) && EnemyExists(right) && Board.Piece(right) == _game.EnPassantVulnerability)
+                    {
+                        mat[right.Row - 1, right.Column] = true;
+                    }
                 }
             }
-
-            //#jogadaespecial en passant Preta
-            if (Position.Row == 4)
+            else
             {
-                Position left = new Position(Position.Row, Position.Column - 1);
-                if (Board.ValidPosition(left) && EnemyExists(left) && Board.Piece(left) == _game.EnPassantVulnerability)
-                {
-                    mat[left.Row, left.Column] = true;
-                }
+                pos.SetPosition(Position.Row + 1, Position.Column);
+                if (Board.ValidPosition(pos) && CanMove(pos))
+                    mat[pos.Row, pos.Column] = true;
 
-                Position right = new Position(Position.Row, Position.Column + 1);
-                if (Board.ValidPosition(right) && EnemyExists(right) && Board.Piece(right) == _game.EnPassantVulnerability)
+                Position pos2 = new Position(Position.Row + 2, Position.Column);
+                if (Board.ValidPosition(pos) && CanMove(pos) && Board.ValidPosition(pos2) && CanMove(pos2) && QntMoves == 0)
+                    mat[pos2.Row, pos2.Column] = true;
+
+                pos.SetPosition(Position.Row + 1, Position.Column - 1);
+                if (Board.ValidPosition(pos) && CanMove(pos) && EnemyExists(pos))
+                    mat[pos.Row, pos.Column] = true;
+
+                pos.SetPosition(Position.Row + 1, Position.Column + 1);
+                if (Board.ValidPosition(pos) && CanMove(pos) && EnemyExists(pos))
+                    mat[pos.Row, pos.Column] = true;
+
+                //#jogadaespecial en passant Preta
+                if (Position.Row == 4)
                 {
-                    mat[right.Row, right.Column] = true;
+                    Position left = new Position(Position.Row, Position.Column - 1);
+                    if (Board.ValidPosition(left) && EnemyExists(left) && Board.Piece(left) == _game.EnPassantVulnerability)
+                    {
+                        mat[left.Row + 1, left.Column] = true;
+                    }
+
+                    Position right = new Position(Position.Row, Position.Column + 1);
+                    if (Board.ValidPosition(right) && EnemyExists(right) && Board.Piece(right) == _game.EnPassantVulnerability)
+                    {
+                        mat[right.Row + 1, right.Column] = true;
+                    }
                 }
             }
 
@@ -117,10 +98,7 @@ namespace Chess.Chess
         private bool EnemyExists(Position pos)
         {
             Piece p = Board.Piece(pos);
-            if (p != null && p.Color != Color)
-                return true;
-            else
-                return false;
+            return p != null && p.Color != Color;
         }
 
         public override string ToString()
