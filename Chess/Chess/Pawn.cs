@@ -34,11 +34,11 @@ namespace Chess.Chess
                     mat[pos2.Row, pos2.Column] = true;
 
                 pos.SetPosition(Position.Row - 1, Position.Column - 1);
-                if (Board.ValidPosition(pos) && CanMove(pos) && EnemyExists(pos))
+                if (Board.ValidPosition(pos) && EnemyExists(pos))
                     mat[pos.Row, pos.Column] = true;
 
                 pos.SetPosition(Position.Row - 1, Position.Column + 1);
-                if (Board.ValidPosition(pos) && CanMove(pos) && EnemyExists(pos))
+                if (Board.ValidPosition(pos) && EnemyExists(pos))
                     mat[pos.Row, pos.Column] = true;
 
                 //#jogadaespecial en passant Branca
@@ -68,11 +68,11 @@ namespace Chess.Chess
                     mat[pos2.Row, pos2.Column] = true;
 
                 pos.SetPosition(Position.Row + 1, Position.Column - 1);
-                if (Board.ValidPosition(pos) && CanMove(pos) && EnemyExists(pos))
+                if (Board.ValidPosition(pos) && EnemyExists(pos))
                     mat[pos.Row, pos.Column] = true;
 
                 pos.SetPosition(Position.Row + 1, Position.Column + 1);
-                if (Board.ValidPosition(pos) && CanMove(pos) && EnemyExists(pos))
+                if (Board.ValidPosition(pos) && EnemyExists(pos))
                     mat[pos.Row, pos.Column] = true;
 
                 //#jogadaespecial en passant Preta

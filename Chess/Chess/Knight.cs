@@ -63,7 +63,7 @@ namespace Chess.Chess
                 mat[pos.Row, pos.Column] = true;
             }
 
-            pos.SetPosition(Position.Row - 2, Position.Column - 1);
+            pos.SetPosition(Position.Row + 2, Position.Column - 1);
             if (Board.ValidPosition(pos) && CanMove(pos))
             {
                 mat[pos.Row, pos.Column] = true;

@@ -119,10 +119,23 @@ namespace Chess.Chess
                 Board.PutPiece(pawn, posEnemyPawn);
             }
         }
-        
+
         public void MakePlay(Position source, Position dest)
         {
             Piece capturedPiece = MovePiece(source, dest);
+
+            Piece p = Board.Piece(dest);
+
+            //#jogada especial promocao
+            if (p is Pawn && (p.Color == Color.White && dest.Row == 0) || (p.Color == Color.Black && dest.Row == 7))
+            {
+                p = Board.RemovePiece(dest);
+                Pieces.Remove(p);
+
+                Piece queen = new Queen(Board, p.Color);
+                Board.PutPiece(queen, dest);
+                Pieces.Add(queen);
+            }
 
             if (IsInCheck(CurrentPlayer))
             {
@@ -134,13 +147,11 @@ namespace Chess.Chess
 
             if (IsCheckmate(Enemy(CurrentPlayer)))
                 Finished = true;
-            else 
+            else
             {
                 Turn++;
                 ChangePlayer();
             }
-
-            Piece p = Board.Piece(dest);
 
             //#jogada especial en passant
             if (p is Pawn && (dest.Row == source.Row - 2 || dest.Row == source.Row + 2))
@@ -222,7 +233,7 @@ namespace Chess.Chess
 
         private Piece King(Color color)
         {
-            foreach (Piece p in  PiecesInGame(color))
+            foreach (Piece p in PiecesInGame(color))
             {
                 if (p is King)
                     return p;
@@ -263,7 +274,7 @@ namespace Chess.Chess
                 {
                     for (int j = 0; j < Board.Columns; j++)
                     {
-                        if (mat[i,j])
+                        if (mat[i, j])
                         {
                             Position source = p.Position;
                             Position destination = new Position(i, j);
