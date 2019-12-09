@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Globalization;
+using System.Collections.Generic;
+using Files.Entities;
 
 namespace Files
 {
@@ -12,6 +14,7 @@ namespace Files
 
             try
             {
+                List<Product> products = new List<Product>();
                 Directory.CreateDirectory(path + @"\out");
 
                 using (StreamReader sr = File.OpenText(path + @"\summary.csv"))
@@ -20,15 +23,20 @@ namespace Files
                     {
                         string[] dados = sr.ReadLine().Split(',');
 
-                        using (StreamWriter sw = File.AppendText(path + @"\out\summary.csv"))
-                        {
-                            double valor = double.Parse(dados[1], CultureInfo.InvariantCulture);
-                            int qnt = int.Parse(dados[2]);
-                            double total = valor * qnt;
+                        string name = dados[0];
+                        double price = double.Parse(dados[1], CultureInfo.InvariantCulture);
+                        int quantity = int.Parse(dados[2]);
 
-                            string line = dados[0] + "," + total.ToString("F2", CultureInfo.InvariantCulture);
-                            sw.WriteLine(line);
-                        }
+                        products.Add(new Product(name, price, quantity));
+                    }
+                }
+
+                using (StreamWriter sw = File.AppendText(path + @"\out\summary.csv"))
+                {
+                    foreach (Product p in products)
+                    {
+                        double total = p.Price * p.Quantity;
+                        sw.WriteLine(p.Name + "," + total.ToString("F2", CultureInfo.InvariantCulture));
                     }
                 }
             }
