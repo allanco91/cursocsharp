@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interface\Int
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExLINQ1", "ExLINQ1\ExLINQ1.csproj", "{FB6B7918-C799-4639-8419-C3D0A4F16B1F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExLINQ", "ExLINQ\ExLINQ.csproj", "{0913D967-41B3-4BAA-B29D-9AD886815FDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{FB6B7918-C799-4639-8419-C3D0A4F16B1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB6B7918-C799-4639-8419-C3D0A4F16B1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB6B7918-C799-4639-8419-C3D0A4F16B1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0913D967-41B3-4BAA-B29D-9AD886815FDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0913D967-41B3-4BAA-B29D-9AD886815FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0913D967-41B3-4BAA-B29D-9AD886815FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0913D967-41B3-4BAA-B29D-9AD886815FDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
