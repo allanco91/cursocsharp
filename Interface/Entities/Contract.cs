@@ -16,5 +16,10 @@ namespace Interfaces.Entities
             Date = date;
             TotalValue = totalValue;
         }
+
+        public void AddInstallment(Installment installment)
+        {
+            Installments.Add(installment);
+        }
     }
 }

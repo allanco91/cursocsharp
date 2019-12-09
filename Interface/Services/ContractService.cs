@@ -20,8 +20,7 @@ namespace Interfaces.Services
                 double paymentFee = _paymentService.PaymentFee(amount + paymentInterest);
                 double total = amount + paymentInterest + paymentFee;
 
-                Installment installment = new Installment(dueDate, total);
-                contract.Installments.Add(installment);
+                contract.AddInstallment(new Installment(dueDate, total));
             }
         }
     }
